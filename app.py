@@ -1,5 +1,7 @@
 import os
 
+st.write("API KEY LOADED:", FRED_API_KEY is not None)
+
 def weighted_metric(scores: pd.DataFrame, weights: dict) -> pd.Series:
     weight_series = pd.Series(weights, dtype=float)
     if weight_series.sum() == 0:
