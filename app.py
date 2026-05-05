@@ -35,7 +35,7 @@ START_DATE = "1988-01-01"
 
 def require_api_key():
     if not FRED_API_KEY:
-        st.error("Missing FRED_API_KEY. Add it to Streamlit secrets or your local environment.")
+        st.write("DEBUG: API KEY IS MISSING")
         st.stop()
 
 
