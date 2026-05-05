@@ -19,17 +19,22 @@ SERIES = {
     "Consumer Sentiment": "UMCSENT",
     "Housing Permits": "PERMIT",
     "Industrial Production": "INDPRO",
+    "Gas Prices": "GASREGW",
+    "Personal Saving Rate": "PSAVERT",
+    "Consumer Credit": "TOTALSL",
 }
 
 DEFAULT_WEIGHTS = {
-    "10Y - 3M Yield Spread": 25,
-    "Unemployment Rate": 20,
-    "Initial Jobless Claims": 20,
-    "Consumer Sentiment": 15,
-    "Housing Permits": 10,
-    "Industrial Production": 10,
+    "10Y - 3M Yield Spread": 20,
+    "Unemployment Rate": 18,
+    "Initial Jobless Claims": 18,
+    "Consumer Sentiment": 12,
+    "Housing Permits": 8,
+    "Industrial Production": 8,
+    "Gas Prices": 6,
+    "Personal Saving Rate": 5,
+    "Consumer Credit": 5,
 }
-
 START_DATE = "1988-01-01"
 
 
@@ -97,6 +102,15 @@ def build_indicator_scores(df: pd.DataFrame) -> pd.DataFrame:
     # Lower industrial production is recessionary, so invert.
     scores["Industrial Production"] = logistic_score(z_score(df["Industrial Production"], invert=True))
 
+    # Higher gas prices are recessionary because they pressure consumers.
+    scores["Gas Prices"] = logistic_score(z_score(df["Gas Prices"], invert=False))
+
+    # Lower saving rate is recessionary, so invert.
+    scores["Personal Saving Rate"] = logistic_score(z_score(df["Personal Saving Rate"], invert=True))
+
+    # Higher consumer credit can indicate debt stress, so treat higher values as higher risk.
+    scores["Consumer Credit"] = logistic_score(z_score(df["Consumer Credit"], invert=False))
+    
     return scores.dropna(how="all")
 
 
