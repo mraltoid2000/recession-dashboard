@@ -45,7 +45,7 @@ def require_api_key():
 
 
 @st.cache_data(ttl=24 * 60 * 60, show_spinner="Fetching latest FRED data...")
-def load_fred_data(api_key: str) -> pd.DataFrame:
+def load_fred_data(api_key: str, cache_version: str = "v2") -> pd.DataFrame:
     fred = Fred(api_key=api_key)
     frames = []
     for label, series_id in SERIES.items():
@@ -174,7 +174,7 @@ require_api_key()
 st.title("Recession Risk Dashboard")
 st.caption("Composite metric built from historical FRED indicators. Shaded regions are NBER recession periods from FRED's USREC series.")
 
-raw_daily = load_fred_data(FRED_API_KEY)
+raw_daily = load_fred_data(FRED_API_KEY, cache_version="v2")
 raw = monthly_resample(raw_daily)
 scores = build_indicator_scores(raw)
 
