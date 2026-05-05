@@ -86,4 +86,4 @@ def build_indicator_scores(df: pd.DataFrame) -> pd.DataFrame:
 
     # Higher jobless claims are recessionary.
     claims_monthly = df["Initial Jobless Claims"]
-)
+
