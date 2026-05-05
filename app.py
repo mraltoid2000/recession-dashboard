@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-st.write("App started successfully")
 from fredapi import Fred
 
 st.set_page_config(page_title="Recession Risk Dashboard", layout="wide")
@@ -36,7 +35,7 @@ START_DATE = "1988-01-01"
 
 def require_api_key():
     if not FRED_API_KEY:
-        st.write("DEBUG: API KEY IS MISSING")
+        st.error("Missing FRED_API_KEY. Add it to Streamlit secrets or your local environment.")
         st.stop()
 
 
