@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+st.write("App started successfully")
 from fredapi import Fred
 
 st.set_page_config(page_title="Recession Risk Dashboard", layout="wide")
